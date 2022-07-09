@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType, ref} from 'vue'
+import {computed, defineComponent, PropType, reactive} from 'vue'
 import {StarIcon} from '@heroicons/vue/solid'
 import {Company} from "../models/Company";
 
@@ -46,10 +46,10 @@ export default defineComponent({
     }
   },
   async setup(props) {
-    const company = ref<Company>(props.modelValue);
+    const company = reactive<Company>(props.modelValue);
 
     const isSelecting = computed(() => {
-      return props.isStarring && props.selectedResult === company.value.id;
+      return props.isStarring && props.selectedResult === company.id;
     });
 
     return {
