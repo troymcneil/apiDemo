@@ -6,6 +6,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
+    "dbBuild": "node tools/createMockDb.js",
     "api": "node tools/apiServer.js",
     "mock": "run-p dev api"
   },
