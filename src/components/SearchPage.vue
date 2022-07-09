@@ -16,10 +16,27 @@
 
     <div>
       <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 pt-12 pb-8">
-        <div v-for="(result, i) in searchResults" :key="result.id"
+        <div v-for="result in searchResults" :key="result.id"
              @click="update(result)"
              class="relative rounded-lg border border-gray-300 cursor-pointer bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-brightWheelPrimary focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-         <search-result v-model="searchResults[i]" :is-starring="isStarringCompany" :selected-result="selectedResult"/>
+          <div class="flex-shrink-0">
+            <img v-if="result.image" class="h-16 w-16 rounded-full" :src="result.image" alt="Company Image">
+          </div>
+          <div class="flex-1 min-w-0">
+            <div>
+              <p class="text-lg font-medium text-gray-900">{{ result.name }}</p>
+              <p class="text-md text-gray-500 truncate">{{ result.description }}</p>
+              <address class="pt-4 text-sm text-gray-600">
+                {{ result.address.address1 }}<br>
+                {{ result.address.address2 }}
+                {{ result.address.city }} {{ result.address.state }}, {{ result.address.postalCode }}
+              </address>
+            </div>
+          </div>
+          <div>
+            <StarIcon class="h-8 w-8 text-gray-500 bg-transparent hover:text-yellow-300 cursor-pointer"
+                      :class="[ result.starred ? 'text-yellow-400' : '', isStarringCompany && selectedResult === result.id ? 'animate-spin' : '']"/>
+          </div>
         </div>
       </div>
     </div>
@@ -31,14 +48,12 @@ import {computed, defineComponent, ref, watch} from 'vue'
 import {StarIcon} from '@heroicons/vue/solid'
 import {Company} from "../models/Company";
 import CompanyService from "../services/CompanyService";
-import SearchResult from "./SearchResult.vue";
 import Error from "./UI/Error.vue";
 
 export default defineComponent({
   name: 'SearchPage',
   components: {
     Error,
-    SearchResult,
     StarIcon
   },
   async setup() {
@@ -75,8 +90,8 @@ export default defineComponent({
       if (typeof response === "string") {
         showError(response);
       } else {
-        reset();
         company.starred = response.starred;
+        reset();
         await getStarredCompanies();
       }
     }
