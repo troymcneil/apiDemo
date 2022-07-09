@@ -6,9 +6,9 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "dbBuild": "node tools/createMockDb.js",
-    "api": "node tools/apiServer.js",
-    "web": "run-p dbBuild api dev"
+    "prestart:api": "node tools/createMockDb.js",
+    "start:api": "node tools/apiServer.js",
+    "web": "run-p dev start:api"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.2",
