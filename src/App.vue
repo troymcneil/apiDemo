@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header/>
-    <div class="container mx-auto py-16 px-8">
+    <div class="container mx-auto py-8 px-8">
       <suspense>
         <search-page/>
       </suspense>

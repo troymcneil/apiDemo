@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "dbBuild": "node tools/createMockDb.js",
     "api": "node tools/apiServer.js",
-    "mock": "run-p dev api"
+    "web": "run-p dbBuild dev api"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.2",
