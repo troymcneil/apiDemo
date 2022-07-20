@@ -1,4 +1,4 @@
-# Brightwheel Exercise
+# API Demo
 
 ## Thank you for your consideration!
 
